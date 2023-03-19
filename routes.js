@@ -28,6 +28,7 @@ router.get('/users', asyncHandler(async (req, res) => {
 // Route that creates a new user.
 router.post('/users', asyncHandler(async (req, res) => {
     try {
+    console.log(req.body)
       await Users.create(req.body);
       res.status(201).json({ "message": "Account successfully created!" });
     } catch (error) {
