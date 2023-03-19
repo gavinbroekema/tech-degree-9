@@ -12,3 +12,5 @@ promiseFinally.shim();
 database.init()
   .catch(err => console.error(err))
   .finally(() => process.exit());
+
+
