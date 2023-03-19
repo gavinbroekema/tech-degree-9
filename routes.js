@@ -23,3 +23,5 @@ router.get('/users', asyncHandler(async (req, res) => {
   let users = await Users.findAll();
   res.json(users);
 }));
+
+module.exports = router;

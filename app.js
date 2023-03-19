@@ -3,6 +3,7 @@
 // load modules
 const express = require('express');
 const morgan = require('morgan');
+const routes = require('./routes');
 
 // variable to enable global error logging
 const enableGlobalErrorLogging = process.env.ENABLE_GLOBAL_ERROR_LOGGING === 'true';
@@ -19,6 +20,8 @@ app.get('/', (req, res) => {
     message: 'Welcome to the REST API project!',
   });
 });
+
+app.use('/api', routes);
 
 
 // send 404 if no other route matched
@@ -47,3 +50,23 @@ app.set('port', process.env.PORT || 3030);
 const server = app.listen(app.get('port'), () => {
   console.log(`Express server is listening on port ${server.address().port}`);
 });
+
+(async () => {
+  try {
+    // Test the connection to the database
+    await sequelize.authenticate();
+    console.log('Connection to the database successful!');
+    // Sync the models
+    console.log('Synchronizing the models with the database...');
+    await sequelize.sync({ force: true });
+    // Add People to the Database
+    console.log('Adding people to the database...');
+  } catch (error) {
+      if (error.name === 'SequelizeValidationError') {
+        const errors = error.errors.map(err => err.message);
+        console.error('Validation errors: ', errors);
+      } else {
+        throw error;
+      }
+    }
+  })
