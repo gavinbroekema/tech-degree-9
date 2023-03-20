@@ -4,7 +4,7 @@ const express = require('express');
 
 // Construct a router instance.
 const router = express.Router();
-const Users = require('./models').Users;
+const Users = require('../models').Users;
 
 // Handler function to wrap each route.
 function asyncHandler(cb) {
@@ -19,14 +19,14 @@ function asyncHandler(cb) {
 }
 
 // Route that returns a list of users.
-router.get('/users', asyncHandler(async (req, res) => {
+router.get('/', asyncHandler(async (req, res) => {
   let users = await Users.findAll();
   res.json(users);
 }));
 
 
 // Route that creates a new user.
-router.post('/users', asyncHandler(async (req, res) => {
+router.post('/', asyncHandler(async (req, res) => {
     try {
     console.log(req.body)
       await Users.create(req.body);

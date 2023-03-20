@@ -3,7 +3,9 @@
 // load modules
 const express = require('express');
 const morgan = require('morgan');
-const routes = require('./routes');
+const userRoutes = require('./routes/users');
+// const coursesRoutes = require('./routes/courses');
+
 
 // variable to enable global error logging
 const enableGlobalErrorLogging = process.env.ENABLE_GLOBAL_ERROR_LOGGING === 'true';
@@ -24,7 +26,7 @@ app.get('/', (req, res) => {
   });
 });
 
-app.use('/api', routes);
+app.use('/api/users', userRoutes);
 
 // send 404 if no other route matched
 app.use((req, res) => {
