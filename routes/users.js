@@ -6,6 +6,8 @@ const express = require('express');
 const router = express.Router();
 const Users = require('../models').Users;
 
+const { authenticateUser } = require('../middleware/auth-user');
+
 // Handler function to wrap each route.
 function asyncHandler(cb) {
   return async (req, res, next) => {
@@ -19,7 +21,8 @@ function asyncHandler(cb) {
 }
 
 // Route that returns a list of users.
-router.get('/', asyncHandler(async (req, res) => {
+// router.get('/', asyncHandler(async (req, res) => {
+router.get('/', authenticateUser, asyncHandler(async (req, res) => {
   let users = await Users.findAll();
   res.json(users);
 }));
