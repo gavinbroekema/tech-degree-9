@@ -8,6 +8,8 @@ const { Users } = require('../models');
 const { authenticateUser } = require('./middleware/auth-user');
 
 
+const { authenticateUser } = require('../middleware/auth-user');
+
 // Handler function to wrap each route.
 function asyncHandler(cb) {
   return async (req, res, next) => {
@@ -21,6 +23,10 @@ function asyncHandler(cb) {
 }
 
 // Route that returns a list of users.
+<<<<<<< HEAD
+=======
+// router.get('/', asyncHandler(async (req, res) => {
+>>>>>>> tmp
 router.get('/', authenticateUser, asyncHandler(async (req, res) => {
   let users = await Users.findAll();
   res.json(users);

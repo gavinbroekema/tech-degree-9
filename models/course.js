@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   Course.init(
     {
+<<<<<<< HEAD
       title: DataTypes.STRING,
       allowNull: false,
       validate: {
@@ -35,6 +36,34 @@ module.exports = (sequelize, DataTypes) => {
       },
       estimatedTime: DataTypes.STRING,
       materialsNeeded: DataTypes.STRING,
+=======
+      title: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: "A title is required",
+          },
+          notEmpty: {
+            msg: "Please provide a title",
+          },
+        },
+      },
+      description: {
+        type: DataTypes.TEXT,
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: "A description is required",
+          },
+          notEmpty: {
+            msg: "Please provide a description",
+          },
+        },
+      },
+      estimatedTime: DataTypes.STRING,
+      materialsNeeded: DataTypes.STRING
+>>>>>>> tmp
     },
     {
       sequelize,

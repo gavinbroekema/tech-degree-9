@@ -6,6 +6,8 @@ const express = require('express');
 const router = express.Router();
 const Course = require('../models').Course;
 
+const { authenticateUser } = require('../middleware/auth-user');
+
 // Handler function to wrap each route.
 function asyncHandler(cb) {
   return async (req, res, next) => {
@@ -26,7 +28,7 @@ router.get('/', asyncHandler(async (req, res) => {
 
 
 // Route that creates a new Course.
-router.post('/', asyncHandler(async (req, res) => {
+router.post('/', authenticateUser, asyncHandler(async (req, res) => {
     try {
     console.log(req.body)
       await Course.create(req.body);
@@ -59,7 +61,7 @@ router.get("/:id", async (req, res) => {
 
 // Send a PUT request to /courses/:id to UPDATE a course
 router.put(
-  "/:id",
+  "/:id", authenticateUser,
   asyncHandler(async (req, res) => {
     const course = await Course.findByPk(req.params.id);
     console.log(course);
@@ -77,7 +79,7 @@ router.put(
 );
 
 // Send a DELETE request to /quotes/:id to DELETE a course
-router.delete("/:id", async (req, res, next) => {
+router.delete("/:id", authenticateUser, async (req, res, next) => {
   try {
     const course = await Course.findByPk(req.params.id);
     if (course) {
